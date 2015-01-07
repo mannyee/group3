@@ -5,6 +5,12 @@ public class FinalOrder {
 	int quantity;
 	double price;
 	double total;
+	public FinalOrder(String string, int i, double d, double e) {
+		this.item = string;
+		this.quantity = i;
+		price = d;
+		total = e;
+	}
 	public String getItem() {
 		return item;
 	}

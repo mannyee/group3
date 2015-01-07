@@ -14,8 +14,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class QuantityDesired extends Stage {
+	private Product product;
 
-	public QuantityDesired(Product product) { 
+	public QuantityDesired(Product product) {
+		this.product = product;
+		
 		setTitle("Quantity Desired");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Quantity Desired");
@@ -38,7 +41,9 @@ public class QuantityDesired extends Stage {
 		Button cancel = new Button("Cancel");
 		
 		ok.setOnAction(evt ->{
-			CartItems cartItems = new CartItems();
+			CartItems cartItems = new CartItems(product, Integer.parseInt(textField.getText().trim()));
+		//	Cart cart = new Cart(product, Integer.parseInt(textField.getText().trim()));
+//			DefaultData.CART_ITEMS.add(cart);
 			cartItems.show();
 			hide();
 		});
