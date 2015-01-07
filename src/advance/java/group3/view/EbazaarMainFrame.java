@@ -15,7 +15,7 @@ public class EbazaarMainFrame extends Application {
 	 double screenWidth = Screen.getPrimary().getBounds().getWidth();
 	 double screenHeight = Screen.getPrimary().getBounds().getHeight() - 100;
 
-//	double screenWidth = 600;
+//	double screenWidth = 600;   
 //	double screenHeight = 600;
 
 	Stage primaryStage;
