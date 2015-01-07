@@ -20,6 +20,8 @@ public class DefaultData {
 	public static final ObservableList<Catalog> CATALOG_LIST_DATA 				= FXCollections.observableArrayList(BOOKS_CATALOG, CLOTHES_CATALOG);
 	public final static ObservableMap<Catalog, List<Product>> PRODUCT_LIST_DATA = FXCollections.observableHashMap();
 	public static final List<String> DISPLAY_PRODUCT_FIELDS 					= Arrays.asList("Item Name", "Price", "Quantity Available", "Review");
+	public static ObservableList<FinalOrder> Final_order_data 					= FXCollections.observableArrayList();
+
 	
 	static {
 		MESSIAH_BOOK.setDescription("You saw how good Dune was. \nThis is Part 2 of this \nunforgettable trilogy.");

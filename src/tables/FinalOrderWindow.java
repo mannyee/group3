@@ -2,9 +2,6 @@ package tables;
 
 
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -22,10 +18,8 @@ import javafx.stage.Stage;
 
 public class FinalOrderWindow extends Stage {
 	private TableView<FinalOrder> table = new TableView<FinalOrder>();
-//	public static final ObservableList<FinalOrder> Final_order_data =
-//            FXCollections.observableArrayList(
-//            new FinalOrder(), new FinalOrder());
 	
+	@SuppressWarnings("unchecked")
 	public FinalOrderWindow() { 
 		setTitle("Final Order");
 		VBox root = new VBox();
@@ -35,10 +29,6 @@ public class FinalOrderWindow extends Stage {
 		paymentBox.setAlignment(Pos.CENTER);
 		paymentBox.getChildren().add(paymentLbl);
 
-//		TextField textField = new TextField();
-//		textField.setPrefWidth(80);
-//		textField.getStyleClass().add("bounding-border-textArea");
-		
 		
 		TableColumn<FinalOrder, String> item = new TableColumn<>("Item");
 		
@@ -64,7 +54,7 @@ public class FinalOrderWindow extends Stage {
 		
 		table.getColumns().addAll(item,quantity,unitPrice,totalPrice);
 
-//		table.setItems(Final_order_data);
+		table.setItems(DefaultData.Final_order_data);
 		
 		HBox gridBox = new HBox();
 		gridBox.setPadding(new Insets(20, 0, 20, 0));
