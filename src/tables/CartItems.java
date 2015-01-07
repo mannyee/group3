@@ -2,6 +2,9 @@ package tables;
 
 
 
+import java.util.stream.Collectors;
+
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,7 +26,18 @@ public class CartItems extends Stage {
 	
 	@SuppressWarnings("unchecked")
 	public CartItems(Product p, int qty) { 
-		DefaultData.Final_order_data.add(new FinalOrder(p.getProductName(), qty, p.getUnitPrice(), qty * p.getUnitPrice()));
+		boolean checkIfPresent = true;
+		for(FinalOrder f : DefaultData.Final_order_data){
+			if(f.getItem().equals(p.getProductName())){
+				f.setQuantity(f.getQuantity() + qty);
+				f.setTotal(f.getQuantity() * f.getPrice());
+				checkIfPresent = false;
+			}
+		}
+		if(checkIfPresent){
+			DefaultData.Final_order_data.add(new FinalOrder(p.getProductName(), qty, p.getUnitPrice(), qty * p.getUnitPrice()));
+		}
+		
 		setTitle("Cart Items");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Cart Items");
@@ -75,8 +89,13 @@ public class CartItems extends Stage {
 			hide();
 		});
 		Button continueShopping = new Button("Continue Shopping");
+		continueShopping.setOnAction(evt -> {
+			ProductListWindow.catalogList.show();
+			hide();
+		});
 		Button saveCart = new Button("Save Cart");
 		Button exit = new Button("Exit E-Bazzar");
+		exit.setOnAction(evt -> Platform.exit()); 
 
 
 		HBox buttonsBox = new HBox(20);

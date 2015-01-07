@@ -63,7 +63,7 @@ public class ProductDetailsWindow extends Stage {
 
         
 		addToCartButton.setOnAction(evt -> {
-			QuantityDesired quantityDesired = new QuantityDesired(this.selectedProduct);
+			QuantityDesired quantityDesired = new QuantityDesired(this,this.selectedProduct);
 			quantityDesired.show();
 			hide();
 		});

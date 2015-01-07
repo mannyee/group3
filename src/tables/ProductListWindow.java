@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 
 public class ProductListWindow extends Stage {
 	private TableView<Product> table = new TableView<Product>();
-	Stage primaryStage;
+	//public static Stage catalogListWindow;
 	Catalog selectedCatalog;
-	CatalogListWindow catalogList;
+	public static CatalogListWindow catalogList;
 	Product selectedProduct;
 	
 	public void setData(ObservableList<Product> prods) {
