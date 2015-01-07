@@ -12,6 +12,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Shipping;
 
@@ -19,8 +20,8 @@ public class ShippingBillingInfoWindow extends Stage {
 
 	// Stage primaryStage;
 
-	final int WINDOW_WIDTH = 450;
-	final int WINDOW_HEIGHT = 380;
+	final int WINDOW_WIDTH = 500;
+	final int WINDOW_HEIGHT = 500;
 
 	public ShippingBillingInfoWindow(Shipping shippingData) {
 		// primaryStage = st;
@@ -50,6 +51,7 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		// Add Title bar label
 		Label titleLbl = new Label("Shipping and Billing Information");
+		titleLbl.setFont(new Font("Arial", 16));
 		titleLbl.setAlignment(Pos.CENTER);
 		titleLbl.setPrefWidth(WINDOW_WIDTH);
 		GridPane.setColumnSpan(titleLbl, 2);
@@ -72,6 +74,8 @@ public class ShippingBillingInfoWindow extends Stage {
 		// Add Shipping Address Controls
 		// Create GridPane layout
 		GridPane shippingAddGrid = new GridPane();
+		shippingAddGrid.setVgap(10);
+		shippingAddGrid.getStyleClass().add("bounding-border");
 		shippingAddGrid.setAlignment(Pos.CENTER);
 		shippingAddGrid.setPrefWidth(WINDOW_WIDTH / 2);
 		grid.add(shippingAddGrid, 0, 2);
@@ -134,6 +138,8 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		// Create GridPane layout
 		GridPane billingAddGrid = new GridPane();
+		billingAddGrid.setVgap(10);
+		billingAddGrid.getStyleClass().add("bounding-border");
 		billingAddGrid.setAlignment(Pos.CENTER);
 		billingAddGrid.setPrefWidth(WINDOW_WIDTH / 2);
 		grid.add(billingAddGrid, 1, 2);
@@ -214,6 +220,7 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		// Add Radio Buttons
 		GridPane rbGrid = new GridPane();
+		rbGrid.getStyleClass().add("bounding-border");
 		rbGrid.setAlignment(Pos.CENTER);
 		rbGrid.setHgap(5);
 		rbGrid.setVgap(5);
@@ -257,7 +264,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		Button proceedWithCheckOutBtn = new Button("proceed With Checkout");
 		proceedWithCheckOutBtn
 				.setOnAction(evt -> {
-					ProceedWithCheckout proceedWithCheckout = new ProceedWithCheckout();
+					ProceedWithCheckout proceedWithCheckout = new ProceedWithCheckout(this);
 					proceedWithCheckout.show();
 					hide();
 				});
@@ -269,6 +276,8 @@ public class ShippingBillingInfoWindow extends Stage {
 		bottomBtnGrid.add(backCartBtn, 2, 0);
 
 		Scene scene = new Scene(grid, WINDOW_WIDTH, WINDOW_HEIGHT);
+		scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 
 	}

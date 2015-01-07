@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -69,18 +70,17 @@ public class CatalogListWindow extends Stage {
         
 		viewButton.setOnAction(evt -> {
 			selected = table.getSelectionModel().getSelectedItem();
+			History.selectedCatalog = selected;
 			ProductListWindow prodList = new ProductListWindow(this, selected);
 			List<Product> prods = DefaultData.PRODUCT_LIST_DATA.get(selected);
 			prodList.setData(FXCollections.observableList(prods));
 			hide();
 			prodList.show();
-			
 		});
-        
-        
-   
+
         Scene scene = new Scene(grid,300, 250);  
-		setScene(scene);
+		setScene(scene);	
+		
 	}
 	
 	

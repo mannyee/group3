@@ -36,4 +36,15 @@ public class FinalOrder {
 		this.total = total;
 	}
 	
+	@Override
+	public String toString() {
+	    return item;
+	}   
+	@Override
+	public int hashCode() {
+	    int hash = 0;
+	    hash += (item != null ? item.hashCode() : 0);
+	    return hash;
+	}
+	
 }
