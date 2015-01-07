@@ -1,7 +1,5 @@
 package tables;
 
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -23,6 +21,7 @@ public class ShippingAddress extends Stage {
 
 	private Shipping selected;
 
+	@SuppressWarnings("unchecked")
 	public ShippingAddress() {
 		try {
 			setTitle("Shipping Address");

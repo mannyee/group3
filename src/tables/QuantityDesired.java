@@ -14,11 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class QuantityDesired extends Stage {
-	private Product product;
-
 	public QuantityDesired(Product product) {
-		this.product = product;
-		
 		setTitle("Quantity Desired");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Quantity Desired");
