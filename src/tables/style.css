@@ -1,0 +1,15 @@
+#ebazzar{
+	-fx-padding : 40px;
+}
+
+
+.bounding-border{
+	-fx-padding: 10px;
+	-fx-border-color: blue;
+	-fx-border-width: 2px;
+}
+
+.bounding-border-textArea{
+	-fx-border-color: blue;
+	-fx-border-width: 2px;
+}
