@@ -20,6 +20,7 @@ public class EbazaarMainFrame extends Application {
 
 	Stage primaryStage;
 	Scene scene;
+	//bikram
 
 	@Override
 	public void start(Stage primaryStage) {
