@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.Shipping;
 
 public class CartItems extends Stage {
 	private Product product;
@@ -69,7 +70,7 @@ public class CartItems extends Stage {
 
 		Button proceedCheck = new Button("Proceed To Check Out");
 		proceedCheck.setOnAction(evt -> {
-			ShippingBillingInfoWindow shippingBillingInfoWindow = new ShippingBillingInfoWindow();
+			ShippingBillingInfoWindow shippingBillingInfoWindow = new ShippingBillingInfoWindow(new Shipping());
 			shippingBillingInfoWindow.show();
 			hide();
 		});

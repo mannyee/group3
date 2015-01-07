@@ -13,16 +13,17 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import model.Shipping;
 
 public class ShippingBillingInfoWindow extends Stage {
 
-//	Stage primaryStage;
+	// Stage primaryStage;
 
 	final int WINDOW_WIDTH = 450;
 	final int WINDOW_HEIGHT = 380;
 
-	public ShippingBillingInfoWindow() {
-	//	primaryStage = st;
+	public ShippingBillingInfoWindow(Shipping shippingData) {
+		// primaryStage = st;
 
 		// Add title on window
 		setTitle("Shipping and Billing Information");
@@ -94,6 +95,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		TextField addressTxtField = new TextField();
 		addressTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(addressTxtField, 1, 2);
+		addressTxtField.setText(shippingData.getStreet());
 
 		// Add City label
 		Label cityLbl = new Label("City");
@@ -104,6 +106,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		TextField cityTxtField = new TextField();
 		cityTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(cityTxtField, 1, 3);
+		cityTxtField.setText(shippingData.getCity());
 
 		// Add State label
 		Label stateLbl = new Label("State");
@@ -114,6 +117,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		TextField stateTxtField = new TextField();
 		stateTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(stateTxtField, 1, 4);
+		stateTxtField.setText(shippingData.getState());
 
 		// Add Zip label
 		Label zipLbl = new Label("Zip");
@@ -124,6 +128,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		TextField zipTxtField = new TextField();
 		zipTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(zipTxtField, 1, 5);
+		zipTxtField.setText(shippingData.getZip());
 
 		// Add Billing Address Controls
 
@@ -232,7 +237,6 @@ public class ShippingBillingInfoWindow extends Stage {
 		cOvernightRB.setToggleGroup(tg);
 		rbGrid.add(cOvernightRB, 0, 2);
 
-		
 		// Add Bottom Buttons
 		GridPane bottomBtnGrid = new GridPane();
 		bottomBtnGrid.setHgap(10);
@@ -251,21 +255,22 @@ public class ShippingBillingInfoWindow extends Stage {
 		bottomBtnGrid.add(shippingAddressBtn, 0, 0);
 
 		Button proceedWithCheckOutBtn = new Button("proceed With Checkout");
-		proceedWithCheckOutBtn.setOnAction(evt -> {
-			ProceedWithCheckout proceedWithCheckout = new ProceedWithCheckout();
-			proceedWithCheckout.show();
-			hide();
-		});
+		proceedWithCheckOutBtn
+				.setOnAction(evt -> {
+					ProceedWithCheckout proceedWithCheckout = new ProceedWithCheckout();
+					proceedWithCheckout.show();
+					hide();
+				});
 		proceedWithCheckOutBtn.setAlignment(Pos.CENTER);
 		bottomBtnGrid.add(proceedWithCheckOutBtn, 1, 0);
 
 		Button backCartBtn = new Button("Back To Cart");
 		backCartBtn.setAlignment(Pos.CENTER);
 		bottomBtnGrid.add(backCartBtn, 2, 0);
-		
+
 		Scene scene = new Scene(grid, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setScene(scene);
 
-
 	}
+
 }

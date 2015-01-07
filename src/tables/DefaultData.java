@@ -3,6 +3,7 @@ package tables;
 import java.util.Arrays;
 import java.util.List;
 
+import model.Shipping;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -16,6 +17,10 @@ public class DefaultData {
 	public static final Product PANTS 				= new Product("Pants", "11/1/2000", 20, 15.00);
 	public static final Product SKIRTS 				= new Product("Skirts", "1/5/1995", 15, 12.00);
 	public static final Product TSHIRTS 			= new Product("T-Shirts", "1/10/2005", 10, 22.00);
+	// Shipping Address Data
+	public static final ObservableList<Shipping> shippingItemList 				= FXCollections.observableArrayList(
+																						new Shipping("1000 N.", "Fairfield", "Iowa", "52557"), 
+																						new Shipping("2000 N.", "Fairfield", "NY", "42997"));
 	
 	public static final ObservableList<Catalog> CATALOG_LIST_DATA 				= FXCollections.observableArrayList(BOOKS_CATALOG, CLOTHES_CATALOG);
 	public final static ObservableMap<Catalog, List<Product>> PRODUCT_LIST_DATA = FXCollections.observableHashMap();
