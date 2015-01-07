@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class QuantityDesired extends Stage {
 
-	public QuantityDesired() { 
+	public QuantityDesired(Product product) { 
 		setTitle("Quantity Desired");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Quantity Desired");
