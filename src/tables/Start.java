@@ -18,12 +18,14 @@ import javafx.stage.Stage;
 //bikram pradhab 
 
 public class Start extends Application {
+	Stage primaryStage;
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Welcome Page");
 
 		VBox topContainer = new VBox();
@@ -42,6 +44,7 @@ public class Start extends Application {
 
 		Menu custMenu = new Menu("Customer");
 		MenuItem onlinePurchase = new MenuItem("Online Purchase");
+
 		onlinePurchase.setOnAction(evt -> {
 			CatalogListWindow catalogs = new CatalogListWindow(primaryStage);
 			catalogs.setData(DefaultData.CATALOG_LIST_DATA);
@@ -49,8 +52,24 @@ public class Start extends Application {
 			primaryStage.hide();
 
 		});
+
+
+		onlinePurchase.setOnAction(evt -> {	
+			openCatalogListWindow();
+		});
 		MenuItem reviewOrder = new MenuItem("Review Orders");
-		MenuItem retrieveCart = new MenuItem("Retrieve Saved Cart");
+		reviewOrder.setOnAction(evt -> {
+			ReviewOrdersWindow reviewOrders = new ReviewOrdersWindow(primaryStage);
+			reviewOrders.show();
+			primaryStage.hide();
+		});
+	    MenuItem retrieveCart = new MenuItem("Retrieve Saved Cart");
+	    retrieveCart.setOnAction(evt ->{
+	    	CartItems cartItems = new CartItems(this);
+	    	cartItems.show();
+	    	primaryStage.hide();
+	    });
+	    
 
 		MenuItem exitApp = new MenuItem("Exit");
 		exitApp.setOnAction(evt -> Platform.exit());
@@ -82,6 +101,14 @@ public class Start extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	
+	public void openCatalogListWindow(){
+		CatalogListWindow catalogs = new CatalogListWindow(primaryStage);
+        catalogs.setData(DefaultData.CATALOG_LIST_DATA);
+        catalogs.show();  
+        primaryStage.hide();
 	}
 
 }

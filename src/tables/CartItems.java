@@ -23,7 +23,7 @@ import model.Shipping;
 public class CartItems extends Stage {
 	private Product product;
 	private TableView<FinalOrder> table = new TableView<FinalOrder>();
-	
+	private Start start;
 	@SuppressWarnings("unchecked")
 	public CartItems(Product p, int qty) { 
 		boolean checkIfPresent = true;
@@ -37,7 +37,13 @@ public class CartItems extends Stage {
 		if(checkIfPresent){
 			DefaultData.Final_order_data.add(new FinalOrder(p.getProductName(), qty, p.getUnitPrice(), qty * p.getUnitPrice()));
 		}
-		
+		load();
+	}
+	public CartItems(Start start){
+		this.start = start;
+		load();
+	}
+	public void load(){
 		setTitle("Cart Items");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Cart Items");
@@ -90,7 +96,11 @@ public class CartItems extends Stage {
 		});
 		Button continueShopping = new Button("Continue Shopping");
 		continueShopping.setOnAction(evt -> {
-			ProductListWindow.catalogList.show();
+			if(ProductListWindow.catalogList == null){
+				start.openCatalogListWindow();
+			}else{
+				ProductListWindow.catalogList.show();
+			}
 			hide();
 		});
 		Button saveCart = new Button("Save Cart");

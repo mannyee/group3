@@ -18,7 +18,7 @@ public class ProductListWindow extends Stage {
 	private TableView<Product> table = new TableView<Product>();
 	//public static Stage catalogListWindow;
 	Catalog selectedCatalog;
-	public static CatalogListWindow catalogList;
+	public static CatalogListWindow catalogList = null;
 	Product selectedProduct;
 	
 	public void setData(ObservableList<Product> prods) {
