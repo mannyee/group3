@@ -1,5 +1,7 @@
 package tables;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -195,10 +197,13 @@ public class MaintainCatalogTypes extends Stage {
 				if (name.length() > 0) {
 
 					if (type.equals("edit")) {
-
+						List<Product> oldProduct =  DefaultData.PRODUCT_LIST_DATA.get(DefaultData.CATALOG_LIST_DATA.get(selectdIndex));
 						DefaultData.CATALOG_LIST_DATA.remove(selectdIndex);
-						DefaultData.CATALOG_LIST_DATA.add(selectdIndex,
-								new Catalog(name));
+						
+						Catalog newCatalog = new Catalog(name);
+						DefaultData.CATALOG_LIST_DATA.add(selectdIndex,newCatalog);
+						DefaultData.PRODUCT_LIST_DATA.put(newCatalog, oldProduct);
+				
 						dialogStage.hide();
 					} else if (type.equals("add")) {
 						boolean check = DefaultData.CATALOG_LIST_DATA.stream().filter((Catalog c) -> c.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).size() > 0;

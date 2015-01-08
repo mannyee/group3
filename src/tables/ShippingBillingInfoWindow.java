@@ -232,6 +232,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		final ToggleGroup tg = new ToggleGroup();
 
 		RadioButton cGroundRB = new RadioButton("Pigeon-carrier Ground");
+		cGroundRB.setSelected(true);
 		cGroundRB.setAlignment(Pos.CENTER);
 		cGroundRB.setToggleGroup(tg);
 		rbGrid.add(cGroundRB, 0, 0);
