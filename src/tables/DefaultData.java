@@ -2,12 +2,14 @@ package tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-import model.Shipping;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import model.Order;
+import model.Shipping;
 
 public class DefaultData {
 
@@ -63,4 +65,7 @@ public class DefaultData {
 		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG, listClothes);
 
 	}
+	
+	public static HashMap<Order,ObservableList<FinalOrder>> orderHistory = new HashMap<Order,ObservableList<FinalOrder>>();
+
 }

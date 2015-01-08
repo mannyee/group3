@@ -81,13 +81,13 @@ public class MaintainCatalogTypes extends Stage {
 		addBtn.setOnAction(evt -> {
 			selected = table.getSelectionModel().getSelectedItem();
 			selectdIndex = table.getSelectionModel().getSelectedIndex();
-			editAddMsgBox("Please input new catalog name ", "add");
+			editAddMsgBox("Add Catalog","Please input new catalog name ", "add");
 		});
 
 		editBtn.setOnAction(evt -> {
 			selected = table.getSelectionModel().getSelectedItem();
 			selectdIndex = table.getSelectionModel().getSelectedIndex();
-			editAddMsgBox("Please input new catalog name " + "instead of "
+			editAddMsgBox("Edit Catalog","Please input new catalog name " + "instead of "
 					+ selected.getName(), "edit");
 		});
 
@@ -123,7 +123,7 @@ public class MaintainCatalogTypes extends Stage {
 				getClass().getResource("style.css").toExternalForm());
 		dialogStage.setScene(scene);
 		dialogStage.setTitle("Remove Catalog");
-		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initModality(Modality.APPLICATION_MODAL);
 
 		Label lab_alert = new Label(title);
 		grd_pan.add(lab_alert, 0, 0);
@@ -160,7 +160,7 @@ public class MaintainCatalogTypes extends Stage {
 
 	}
 
-	public void editAddMsgBox(String title, String type) {
+	public void editAddMsgBox(String title,String textLbl, String type) {
 		dialogStage = new Stage();
 		GridPane grd_pan = new GridPane();
 		grd_pan.setAlignment(Pos.CENTER);
@@ -170,10 +170,10 @@ public class MaintainCatalogTypes extends Stage {
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		dialogStage.setScene(scene);
-		dialogStage.setTitle("Edit Catalog");
-		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.setTitle(title);
+		dialogStage.initModality(Modality.APPLICATION_MODAL);
 
-		Label lab_alert = new Label(title);
+		Label lab_alert = new Label(textLbl);
 		grd_pan.add(lab_alert, 0, 0);
 
 		TextField nameTF = new TextField();

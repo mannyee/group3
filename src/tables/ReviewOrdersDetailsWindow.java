@@ -2,6 +2,7 @@ package tables;
 
 
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class ReviewOrdersDetailsWindow extends Stage {
 	private TableView<FinalOrder> table = new TableView<FinalOrder>();
 	Stage reviewOrdersDetailsWindow;
 	
-	public ReviewOrdersDetailsWindow(Stage stage){
+	public ReviewOrdersDetailsWindow(Stage stage,Order order){
 		this.reviewOrdersDetailsWindow = stage;
 		setTitle("Order Detail");
 		VBox root = new VBox();
@@ -56,15 +57,16 @@ public class ReviewOrdersDetailsWindow extends Stage {
 		table.getColumns().addAll(product,quantity,unitPrice,total);
 	//	table.setItems(DefaultData.Final_order_data);
 		table.setMinWidth(480);
+		table.setItems(FXCollections.observableArrayList(DefaultData.orderHistory.get(order)));
+		
 		HBox gridBox = new HBox();
 		gridBox.setPadding(new Insets(20, 0, 20, 0));
 		gridBox.setAlignment(Pos.CENTER);
 		gridBox.getChildren().addAll(table);
 
-		Button viewDetails = new Button("View Details");
+		Button okBtn = new Button("Ok");
 
-		Button cancel = new Button("Cancel");
-		cancel.setOnAction(evt ->{
+		okBtn.setOnAction(evt ->{
 			reviewOrdersDetailsWindow.show();
 			hide();
 		});
@@ -72,7 +74,7 @@ public class ReviewOrdersDetailsWindow extends Stage {
 		HBox buttonsBox = new HBox(20);
 		buttonsBox.setPadding(new Insets(0, 0, 20, 0));
 		buttonsBox.setAlignment(Pos.CENTER);
-		buttonsBox.getChildren().addAll(viewDetails, cancel);
+		buttonsBox.getChildren().addAll(okBtn);
 
 		root.getChildren().addAll(orderBox, gridBox, buttonsBox);
 		Scene scene = new Scene(root, 500, 400);

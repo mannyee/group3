@@ -5,6 +5,12 @@ public class Order {
 	private  String orderDate;
 	private double totalCost;
 	
+	public Order( String orderId,String orderDate,double totalCost){
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.totalCost = totalCost;
+	}
+	
 	public String getOrderId() {
 		return orderId;
 	}

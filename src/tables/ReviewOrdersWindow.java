@@ -2,6 +2,17 @@ package tables;
 
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
+
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Order;
 
@@ -53,6 +63,10 @@ public class ReviewOrdersWindow extends Stage {
 	//	table.setItems(DefaultData.Final_order_data);
 		table.setMinWidth(480);
 		
+
+		table.setItems(FXCollections.observableArrayList(DefaultData.orderHistory.keySet()));
+		
+		
 		HBox gridBox = new HBox();
 		gridBox.setPadding(new Insets(20, 0, 20, 0));
 		gridBox.setAlignment(Pos.CENTER);
@@ -60,9 +74,13 @@ public class ReviewOrdersWindow extends Stage {
 		
 		Button viewDetails = new Button("View Details");
 		viewDetails.setOnAction(evt -> {
-			ReviewOrdersDetailsWindow reviewOrdersDetailsWindow = new ReviewOrdersDetailsWindow(this);
-			reviewOrdersDetailsWindow.show();
-			hide();
+			Order order = table.getSelectionModel().getSelectedItem();
+			if(order != null){
+				ReviewOrdersDetailsWindow reviewOrdersDetailsWindow = new ReviewOrdersDetailsWindow(this,order);
+				reviewOrdersDetailsWindow.show();
+				hide();
+			}
+			
 		});
 
 		Button cancel = new Button("Cancel");
