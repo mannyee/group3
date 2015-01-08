@@ -3,18 +3,23 @@ package tables;
 public class Catalog {
 	int id;
 	String name;
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Catalog(String name) {
 		this.name = name;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -41,4 +46,5 @@ public class Catalog {
 		hash += (name != null) ? name.hashCode() : 0;
 		return hash;
 	}
+
 }

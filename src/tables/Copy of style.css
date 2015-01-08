@@ -1,0 +1,35 @@
+#ebazzar{
+	-fx-padding : 80px;
+}
+
+.bounding-border{
+	-fx-padding: 10px;
+	-fx-border-color: blue;
+	-fx-border-width: 2px;
+}
+
+.bounding-border-textArea{
+	-fx-border-color: blue;
+	-fx-border-width: 2px;
+}
+
+.custom-tile-font-style{
+	-fx-padding: 10 0 0 0;
+	-fx-font-family: "Arial";
+	-fx-font-size: 22px;
+}
+
+.error-font-style{
+	-fx-text-fill: #ff0000;
+	-fx-font-family: "Arial";
+	-fx-font-size: 12px;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#aeaeae,20%);
+}
+
+.menu-item{
+	-fx-background-color: derive(#aeaeae,20%);
+}
+

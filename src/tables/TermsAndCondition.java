@@ -2,6 +2,7 @@ package tables;
 
 
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class TermsAndCondition extends Stage {
@@ -19,7 +19,8 @@ public class TermsAndCondition extends Stage {
 		this.setTitle("Terms And Condition");
 		VBox root = new VBox();
 		Label termsAndCondition = new Label("Terms And Condition");
-		termsAndCondition.setFont(new Font("Arial", 16));
+		termsAndCondition.getStyleClass().add("custom-tile-font-style");
+//		termsAndCondition.setFont(new Font("Arial", 16));
 		HBox paymentBox = new HBox();
 		paymentBox.setAlignment(Pos.CENTER);
 		paymentBox.getChildren().add(termsAndCondition);
@@ -40,7 +41,7 @@ public class TermsAndCondition extends Stage {
 			hide();
 		});
 		Button exit = new Button("Exit E-Bazzar");
-
+		exit.setOnAction(evt -> Platform.exit());
 
 		HBox buttonsBox = new HBox(20);
 

@@ -3,6 +3,7 @@ package tables;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +25,8 @@ public class ProductDetailsWindow extends Stage {
 		setTitle("Product Details");
 		
 		final Label label = new Label(String.format("%s: Product Details", selectedProduct.getProductName()));
-        label.setFont(new Font("Arial", 16));
+		label.getStyleClass().add("custom-tile-font-style");
+//        label.setFont(new Font("Arial", 16));
         HBox labelHbox = new HBox(10);
         labelHbox.setAlignment(Pos.CENTER);
         labelHbox.getChildren().add(label);
@@ -49,6 +51,7 @@ public class ProductDetailsWindow extends Stage {
 		grid.add(labelHbox, 0, 0);
 		grid.add(dataTable, 0, 1);
 		HBox btnBox = new HBox(10);
+		btnBox.setPadding(new Insets(0, 0, 20, 0));
 		btnBox.setAlignment(Pos.CENTER);
 		btnBox.getChildren().add(addToCartButton);
 		btnBox.getChildren().add(backButton);
@@ -63,14 +66,16 @@ public class ProductDetailsWindow extends Stage {
 
         
 		addToCartButton.setOnAction(evt -> {
-			QuantityDesired quantityDesired = new QuantityDesired(this.selectedProduct);
+			QuantityDesired quantityDesired = new QuantityDesired(this,this.selectedProduct);
 			quantityDesired.show();
 			hide();
 		});
         
         
    
-        Scene scene = new Scene(grid,300, 250);  
+        Scene scene = new Scene(grid,400, 350);  
+        scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 	}
 }

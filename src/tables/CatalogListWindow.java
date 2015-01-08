@@ -4,9 +4,11 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,7 +33,8 @@ public class CatalogListWindow extends Stage {
 		setTitle("Catalog List");
 		
 		final Label label = new Label("Browse Catalogs");
-        label.setFont(new Font("Arial", 16));
+		label.getStyleClass().add("custom-tile-font-style");
+        //label.setFont(new Font("Arial", 16));
         HBox labelHbox = new HBox(10);
         labelHbox.setAlignment(Pos.CENTER);
         labelHbox.getChildren().add(label);
@@ -41,7 +44,7 @@ public class CatalogListWindow extends Stage {
 		catalogNameCol.setCellValueFactory(
             new PropertyValueFactory<Catalog, String>("name"));
 		catalogNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(catalogNameCol);
 		
 		Button viewButton = new Button("View Catalog");
@@ -54,6 +57,7 @@ public class CatalogListWindow extends Stage {
 		grid.add(labelHbox, 0, 0);
 		grid.add(table, 0, 1);
 		HBox btnBox = new HBox(10);
+		btnBox.setPadding(new Insets(0, 0, 20, 0));
 		btnBox.setAlignment(Pos.CENTER);
 		btnBox.getChildren().add(viewButton);
 		btnBox.getChildren().add(backButton);
@@ -69,18 +73,19 @@ public class CatalogListWindow extends Stage {
         
 		viewButton.setOnAction(evt -> {
 			selected = table.getSelectionModel().getSelectedItem();
+			History.selectedCatalog = selected;
 			ProductListWindow prodList = new ProductListWindow(this, selected);
 			List<Product> prods = DefaultData.PRODUCT_LIST_DATA.get(selected);
 			prodList.setData(FXCollections.observableList(prods));
 			hide();
 			prodList.show();
-			
 		});
-        
-        
-   
-        Scene scene = new Scene(grid,300, 250);  
-		setScene(scene);
+
+        Scene scene = new Scene(grid,350, 300);  
+        scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
+		setScene(scene);	
+		
 	}
 	
 	

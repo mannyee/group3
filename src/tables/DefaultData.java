@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 public class DefaultData {
+
 	public static final Catalog BOOKS_CATALOG 		= new Catalog("Books");
 	public static final Catalog CLOTHES_CATALOG 	= new Catalog("Clothes");
 	public static final Product MESSIAH_BOOK 		= new Product("Messiah Of Dune", "11/11/2000", 20, 15.00);
@@ -45,9 +46,12 @@ public class DefaultData {
 
 	
 	static {
-		MESSIAH_BOOK.setDescription("You saw how good Dune was. \nThis is Part 2 of this \nunforgettable trilogy.");
-		GONE_BOOK.setDescription("A moving classic that tells \na tale of love and \na tale of courage.");
-		GARDEN_BOOK.setDescription("Highly acclaimed Book \nof Isaac Asimov. A real \nnail-biter.");
+		MESSIAH_BOOK
+				.setDescription("You saw how good Dune was. \nThis is Part 2 of this \nunforgettable trilogy.");
+		GONE_BOOK
+				.setDescription("A moving classic that tells \na tale of love and \na tale of courage.");
+		GARDEN_BOOK
+				.setDescription("Highly acclaimed Book \nof Isaac Asimov. A real \nnail-biter.");
 		PANTS.setDescription("I've seen the Grand Canyon. \nI've camped at Yellowstone. But nothing \non earth compares to the look and feel of \nthese pants.");
 		SKIRTS.setDescription("Once this brand of skirts \nbecomes well-known, watch out!");
 		TSHIRTS.setDescription("Can be worn by men or women. \nAlways in style.");
@@ -57,5 +61,6 @@ public class DefaultData {
 
 //		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG,Arrays.asList(PANTS, SKIRTS, TSHIRTS));
 		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG, listClothes);
+
 	}
 }

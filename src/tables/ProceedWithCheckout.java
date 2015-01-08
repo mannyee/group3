@@ -14,10 +14,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ProceedWithCheckout extends Stage {
+	
+	public Stage shippingBillingInfoWindow;
 
-	public ProceedWithCheckout() {
+	public ProceedWithCheckout(Stage stage) {
+		shippingBillingInfoWindow = stage;
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Payment Method");
+		paymentLbl.getStyleClass().add("custom-tile-font-style");
 		paymentLbl.setFont(new Font("Arial", 16));
 		HBox paymentBox = new HBox();
 		paymentBox.setAlignment(Pos.CENTER);
@@ -35,7 +39,11 @@ public class ProceedWithCheckout extends Stage {
 		TextField cardName = new TextField();
 		TextField cardNumber = new TextField();
 		ComboBox<String> cardType = new ComboBox<String>();
-		cardType.getItems().addAll("Visa", "Master");
+		cardType.getItems().addAll("Visa", "Master"); 
+		cardType.setValue("Visa");
+		cardType.setOnAction(evt ->{
+			System.out.println(cardType.getSelectionModel().getSelectedItem());
+		});
 		TextField expirationDate = new TextField();
 
 		grid.add(cardName, 1, 0);
@@ -55,7 +63,10 @@ public class ProceedWithCheckout extends Stage {
 			hide();
 		});
 		Button backToCard = new Button("Back To Cart");
-
+		backToCard.setOnAction(evt -> {
+			shippingBillingInfoWindow.show();
+			hide();
+		});
 
 		HBox buttonsBox = new HBox(20);
 
@@ -63,7 +74,7 @@ public class ProceedWithCheckout extends Stage {
 		buttonsBox.getChildren().addAll(checkOutBtn, backToCard);
 
 		root.getChildren().addAll(paymentBox, gridBox, buttonsBox);
-		Scene scene = new Scene(root, 400, 300);
+		Scene scene = new Scene(root, 400, 280);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
