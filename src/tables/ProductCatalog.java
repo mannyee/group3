@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,55 +36,59 @@ public class ProductCatalog extends Stage {
 	private Button btnBack;
 	private HBox btnBox;
 	private GridPane grid;
-	private ProductListWindow productList;
+	private Stage stage;
 	
 	
 	@SuppressWarnings("unchecked")
-	public ProductCatalog() {
+	public ProductCatalog(Stage primaryStage) {
+		this.stage = primaryStage;
 		
 		label = new Label("Maintain Product Catalog");
-        label.setFont(new Font("Arial", 16));
+		label.getStyleClass().add("custom-tile-font-style");
         HBox labelHbox = new HBox(10);
         labelHbox.setAlignment(Pos.CENTER);
         labelHbox.getChildren().add(label);
         
-        
-        
 		comboBox = new ComboBox<Catalog>();
 		comboBox.getItems().setAll(DefaultData.CATALOG_LIST_DATA);
 		comboBox.setValue(DefaultData.CATALOG_LIST_DATA.get(0));
+		HBox hCombo = new HBox(10);
+		hCombo.setAlignment(Pos.BOTTOM_LEFT);
+		hCombo.setPadding(new Insets(0, 0, 0, 20));
+		hCombo.getChildren().add(comboBox);
 		
 		
-
-		catalogName = new TableColumn<>();
-		catalogName.setMinWidth(250);
+		catalogName = new TableColumn<>("Name");
+		catalogName.setMinWidth(240);
 		catalogName.setCellValueFactory(new PropertyValueFactory<Product, String>(
 				"productName"));
 		catalogName.setCellFactory(TextFieldTableCell.forTableColumn());
 		
-		mfgDate = new TableColumn<>();
-		mfgDate.setMinWidth(250);
+		mfgDate = new TableColumn<>("Mfg. Date");
+		mfgDate.setMinWidth(150);
 		mfgDate.setCellValueFactory(new PropertyValueFactory<Product, String>(
 				"mfgDate"));
 		mfgDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		
-		unitPrice = new TableColumn<>();
-		unitPrice.setMinWidth(250);
+		unitPrice = new TableColumn<>("Unit Price");
+		unitPrice.setMinWidth(150);
 		unitPrice.setCellValueFactory(new PropertyValueFactory<Product, Double>(
 				"unitPrice"));
 //		unitPrice.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		
-		quantity = new TableColumn<>();
-		quantity.setMinWidth(250);
+		quantity = new TableColumn<>("Quantities");
+		quantity.setMinWidth(125);
 		quantity.setCellValueFactory(new PropertyValueFactory<Product, Integer>(
 				"quantityAvail"));
 //		quantity.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		table.getColumns().addAll(catalogName, mfgDate, unitPrice, quantity);
-
 		
+		HBox tableBox = new HBox();
+		tableBox.setPadding(new Insets(0,20,0,20));
+		tableBox.getChildren().add(table);
 
 		table.setItems(FXCollections.observableArrayList(DefaultData.PRODUCT_LIST_DATA.get(DefaultData.CATALOG_LIST_DATA.get(0))));
 		
@@ -96,10 +101,6 @@ public class ProductCatalog extends Stage {
 			
 		});
 		
-		
-		
-			
-		
 						        
 		
 		btnAdd = new Button("Add");
@@ -110,28 +111,29 @@ public class ProductCatalog extends Stage {
 		
 		btnBox = new HBox(10);
 		btnBox.setAlignment(Pos.CENTER);
-		btnBox.getChildren().addAll(btnAdd, btnEdit, btnDelete, btnSearch, btnBack);
+		btnBox.getChildren().addAll(btnAdd, btnEdit, btnDelete, btnBack);
 		
 		grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setVgap(10); 
 		grid.setHgap(10);
 		grid.add(labelHbox, 0, 0);
-		grid.add(comboBox, 0, 1);
-		grid.add(table, 0, 2);
+		grid.add(hCombo, 0, 1);
+		grid.add(tableBox, 0, 2);
 		grid.add(btnBox,0,3);
 		
         
 		btnBack.setOnAction(evt -> {
-			productList.show();
+			
 			hide();
+			stage.show();
 		});
 	
 
         
 		btnAdd.setOnAction(evt -> {
 			hide();
-			AddProduct add = new AddProduct();
+			AddProduct add = new AddProduct(stage);
 			add.show();
 		});
         
@@ -140,48 +142,12 @@ public class ProductCatalog extends Stage {
 			Product p = table.getSelectionModel().getSelectedItem();
 			
 			if(p == null){
-				final Stage dialogStage = new Stage();
-				dialogStage.initModality(Modality.WINDOW_MODAL);
-
-                Label msg = new Label("Please select a row first!!");
-                msg.setAlignment(Pos.CENTER);
-                
-                Button btnOk = new Button("Ok");
-                
-                
-                dialogStage.show();
-
-                
-                btnOk.setOnAction(e -> {
-                	dialogStage.close();
-                });
-                
-                HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER);
-                hBox.setSpacing(40.0);
-                hBox.getChildren().addAll(msg, btnOk);
-
-                VBox vBox = new VBox();
-                vBox.setSpacing(40.0);
-                vBox.getChildren().addAll(msg, btnOk); 
-                
-                GridPane grid1 = new GridPane();
-                grid1.setAlignment(Pos.CENTER);
-                grid.setVgap(10); 
-        		grid.setHgap(10);
-               /* grid1.add(msg, 0, 0);
-                grid1.add(btnOk, 0, 1);*/
-                
-//                grid1.add(msg, 0, 0);
-//                grid1.add(btnOk, 0, 1);
-                
-                dialogStage.setScene(new Scene(vBox, 350, 200));
-                dialogStage.show();
-                
+				ModalDialog md = new ModalDialog();
+				md.show();
                 
             }else{
             	
-            	EditProduct ep = new EditProduct(p, comboBox.getSelectionModel().getSelectedItem());
+            	EditProduct ep = new EditProduct(p, comboBox.getSelectionModel().getSelectedItem(), stage);
             	ep.show();
             	
             	// hide product catalog
@@ -193,26 +159,27 @@ public class ProductCatalog extends Stage {
 		
 		btnDelete.setOnAction(evt -> {
 			Product p = table.getSelectionModel().getSelectedItem();
-			Iterator<Product> list = DefaultData.PRODUCT_LIST_DATA.get(comboBox.getSelectionModel().getSelectedItem()).iterator();
-			
-			while (list.hasNext()){
-				Product prod = list.next();
+
+			if (p == null) {
+				ModalDialog md = new ModalDialog();
+				md.show();
+			} else {
 				
-				if(prod.getProductName().equals(p.getProductName())){
-					list.remove();
-				}
-					
+				DefaultData.PRODUCT_LIST_DATA.get(comboBox.getSelectionModel().getSelectedItem()).remove(table.getSelectionModel().getSelectedIndex());
+				table.getSelectionModel().clearSelection(table.getSelectionModel().getSelectedIndex());
+				
+				table.setItems(FXCollections.observableArrayList(DefaultData.PRODUCT_LIST_DATA.get(comboBox.getSelectionModel().getSelectedItem())));
+
+				
 			}
 			
-			
-			List<Product> lp = DefaultData.PRODUCT_LIST_DATA.get(comboBox.getSelectionModel().getSelectedItem());
-			DefaultData.PRODUCT_LIST_DATA.put(comboBox.getSelectionModel().getSelectedItem(), lp);
-			
-			
+//			System.out.println("index: " + table.getSelectionModel().getSelectedIndex());
+
 		});
         
    
-        Scene scene = new Scene(grid,300, 250);  
+        Scene scene = new Scene(grid, 700, 600);  
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 	}
 }

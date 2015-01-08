@@ -97,7 +97,7 @@ public class Start extends Application {
 		
 		productCatalog.setOnAction(evt -> {
 			primaryStage.hide();
-			ProductCatalog pc = new ProductCatalog();
+			ProductCatalog pc = new ProductCatalog(primaryStage);
 			pc.show();
 			
 		});

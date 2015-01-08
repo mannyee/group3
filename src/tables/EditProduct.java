@@ -4,11 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
+import javafx.stage.Stage;
+
 
 public class EditProduct extends AddEditProduct{
+	Product prod;
+	Catalog catalog;
 	
-	public EditProduct(Product p, Catalog c){
-		super();
+	
+	public EditProduct(Product p, Catalog c, Stage stage){
+		super(stage);
+		
+		this.prod = p;
+		this.catalog = c;
 		
 		txtName.setText(p.getProductName());
 		//cmbCatalog.setValue(p.);;
@@ -20,7 +28,7 @@ public class EditProduct extends AddEditProduct{
 
 		
 		txtQty.setText(String.valueOf(p.getQuantityAvail()));;
-		txtProductId.setVisible(true);
+		txtProductId.setVisible(false);
 		txtProductId.setText(String.valueOf(p.getProductId()));
 		
 	}
@@ -30,7 +38,6 @@ public class EditProduct extends AddEditProduct{
 	public void performAddEdit(){
 		
 		btnSave.setOnAction(evt -> {
-			Integer pid = null;
 			hide();
 			Catalog cat = cmbCatalog.getSelectionModel().getSelectedItem();
 			
@@ -41,29 +48,35 @@ public class EditProduct extends AddEditProduct{
 			while(listProd.hasNext()){
 				Product p = listProd.next();
 				
-				System.out.println("edit id: " + txtProductId.getText().trim());
-				System.out.println("product id from table: " + p.getProductId());
+				// String str = txtProductId.getText().trim();
 				
-//				Integer.parseInt(txtProductId.getText().trim())
-				String str = txtProductId.getText().trim();
-				
-				if(p.getProductId() != null && (str != null && str != "")){
-					
-					if(p.getProductId() == Integer.parseInt(txtProductId.getText().trim())){
-						pid = p.getProductId();
+				// p.getProductId() != null && (str != null && str != "")
+				if(p.getProductId() == Integer.parseInt(txtProductId.getText().trim())){
+					System.out.println("dkjfasd;fj : " + p.getProductId());
 						listProd.remove();
-					}
 				}
 			}
 			
 		
-			Product prod = new Product(pid, txtName.getText().trim(), date.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")), 
+			
+			Product prod = new Product(Integer.parseInt(txtProductId.getText().trim()), txtName.getText().trim(), date.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")), 
 									Integer.parseInt(txtQty.getText().trim()), Double.parseDouble(txtPrice.getText().trim()));
+			
+			
+			
 			
 			
 			DefaultData.PRODUCT_LIST_DATA.get(cat).add(prod);
 			
-			ProductCatalog pc = new ProductCatalog();
+			
+			// find out if the catalog of the product has changed
+			if(!cat.equals(this.catalog)){
+				
+				DefaultData.PRODUCT_LIST_DATA.get(this.catalog).remove(this.prod);
+			}
+			
+			
+			ProductCatalog pc = new ProductCatalog(stage);
 			pc.show();
 		});
 		

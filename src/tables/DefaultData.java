@@ -15,13 +15,13 @@ public class DefaultData {
 
 	public static final Catalog BOOKS_CATALOG 		= new Catalog("Books");
 	public static final Catalog CLOTHES_CATALOG 	= new Catalog("Clothes");
-	public static final Product MESSIAH_BOOK 		= new Product("Messiah Of Dune", "11/11/2000", 20, 15.00);
-	public static final Product GONE_BOOK 			= new Product("Gone with the Wind", "12/5/1995", 15, 12.00);
-	public static final Product GARDEN_BOOK 		= new Product("Garden of Rama", "1/1/2005", 5, 18.00);
-	public static final Product PANTS 				= new Product("Pants", "11/1/2000", 20, 15.00);
-	public static final Product SKIRTS 				= new Product("Skirts", "1/5/1995", 15, 12.00);
-	public static final Product TSHIRTS 			= new Product("T-Shirts", "1/10/2005", 10, 22.00);
-	public static int PRODUCT_ID			= 1;
+	public static final Product MESSIAH_BOOK 		= new Product(1, "Messiah Of Dune", "11/11/2000", 20, 15.00);
+	public static final Product GONE_BOOK 			= new Product(2, "Gone with the Wind", "12/5/1995", 15, 12.00);
+	public static final Product GARDEN_BOOK 		= new Product(3, "Garden of Rama", "1/1/2005", 5, 18.00);
+	public static final Product PANTS 				= new Product(4, "Pants", "11/1/2000", 20, 15.00);
+	public static final Product SKIRTS 				= new Product(5, "Skirts", "1/5/1995", 15, 12.00);
+	public static final Product TSHIRTS 			= new Product(6, "T-Shirts", "1/10/2005", 10, 22.00);
+	public static int PRODUCT_ID					= 6;
 	
 	public static List<Product> listProd 			= new ArrayList<Product>();
 	public static List<Product> listClothes 		= new ArrayList<Product>();

@@ -1,4 +1,5 @@
 package tables;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 
 
 public class AddEditProduct extends Stage{
-	
+	 Stage stage;
 	 Label lblProductName;
 	 TextField txtName;
 	 Label lblCatalog;
@@ -30,12 +31,14 @@ public class AddEditProduct extends Stage{
 	 HBox btnBox;
 	 TextField txtProductId;
 
-	public AddEditProduct() {
+	public AddEditProduct(Stage stage) {
+		this.stage = stage;
 		
 		final Text header = new Text("Add New Product");
-        header.setFont(new Font("Arial", 16));
+        header.getStyleClass().add("custom-tile-font-style");
         HBox labelHbox = new HBox(10);
         labelHbox.setAlignment(Pos.CENTER);
+        labelHbox.setPadding(new Insets(0, 0, 15, 0));
         labelHbox.getChildren().add(header);
         
         
@@ -60,6 +63,13 @@ public class AddEditProduct extends Stage{
 		
 		btnSave = new Button("Save");
 		btnClose = new Button("Close");
+		btnBox = new HBox(10);
+		btnBox.setAlignment(Pos.CENTER);
+		btnBox.getChildren().addAll(btnSave, btnClose);
+		
+		txtProductId = new TextField();
+		txtProductId.setVisible(false);
+		
 		
 		performAddEdit();
 		
@@ -67,13 +77,11 @@ public class AddEditProduct extends Stage{
 		
 		btnClose.setOnAction(evt -> {
 			hide();
-			ProductCatalog pc = new ProductCatalog();
+			ProductCatalog pc = new ProductCatalog(stage);
 			pc.show();
 		});
 		
-		btnBox = new HBox(10);
-		btnBox.setAlignment(Pos.CENTER);
-		btnBox.getChildren().addAll(btnSave, btnClose);
+		
 		
 		txtProductId = new TextField();
 		txtProductId.setVisible(false);
@@ -93,12 +101,13 @@ public class AddEditProduct extends Stage{
 		grid.add(date, 1, 4);
 		grid.add(lbtQty, 0, 5);
 		grid.add(txtQty, 1, 5);
-		grid.add(btnBox,0,6);
+		grid.add(btnBox,0,6, 2, 1);
 		grid.add(txtProductId, 0, 7);
 		
-        
+		grid.setGridLinesVisible(false);
    
-        Scene scene = new Scene(grid,300, 250);  
+        Scene scene = new Scene(grid,500, 350);  
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 	}
 

@@ -2,15 +2,17 @@ package tables;
 
 import java.time.format.DateTimeFormatter;
 
+import javafx.stage.Stage;
+
 
 
 
 public class AddProduct extends AddEditProduct {
 
 	
-	public AddProduct() {
+	public AddProduct(Stage stage) {
 		
-		super();
+		super(stage);
 	}
 	
 	
@@ -26,7 +28,7 @@ public class AddProduct extends AddEditProduct {
 			DefaultData.PRODUCT_LIST_DATA.get(c).add(p);
 			hide();
 			
-			ProductCatalog pc = new ProductCatalog();
+			ProductCatalog pc = new ProductCatalog(stage);
 			pc.show();
 		});
 		
