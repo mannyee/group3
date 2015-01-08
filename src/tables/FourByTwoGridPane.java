@@ -23,6 +23,7 @@ public class FourByTwoGridPane extends GridPane {
 		makeRows();
 		fillUpCells();
 		setConstraints();
+		setPrefSize(400, 400);
 	}
 	private void makeRows(){
 		addRow(0, new Label(rowHeaders.get(0)), new Label(values.get(0)));
