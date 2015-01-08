@@ -20,11 +20,12 @@ public class ShippingBillingInfoWindow extends Stage {
 
 	// Stage primaryStage;
 
-	final int WINDOW_WIDTH = 500;
-	final int WINDOW_HEIGHT = 500;
-
-	public ShippingBillingInfoWindow(Shipping shippingData) {
-		// primaryStage = st;
+	final int WINDOW_WIDTH = 600;
+	final int WINDOW_HEIGHT = 480;
+	TextField stateTxtField,zipTxtField,addressTxtField,cityTxtField;
+	Stage cartItems;
+	public ShippingBillingInfoWindow(Stage stage) {
+		cartItems = stage;
 
 		// Add title on window
 		setTitle("Shipping and Billing Information");
@@ -34,7 +35,7 @@ public class ShippingBillingInfoWindow extends Stage {
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
-		grid.setPadding(new Insets(15, 15, 15, 15));
+		grid.setPadding(new Insets(0, 15, 15, 15));
 
 		// Setting columns size in percent
 		ColumnConstraints column = new ColumnConstraints();
@@ -51,7 +52,8 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		// Add Title bar label
 		Label titleLbl = new Label("Shipping and Billing Information");
-		titleLbl.setFont(new Font("Arial", 16));
+//		titleLbl.setFont(new Font("Arial", 16));
+		titleLbl.getStyleClass().add("custom-tile-font-style");
 		titleLbl.setAlignment(Pos.CENTER);
 		titleLbl.setPrefWidth(WINDOW_WIDTH);
 		GridPane.setColumnSpan(titleLbl, 2);
@@ -96,10 +98,10 @@ public class ShippingBillingInfoWindow extends Stage {
 		shippingAddGrid.add(address1Lbl, 0, 2);
 
 		// Add Address1 TextField
-		TextField addressTxtField = new TextField();
+		addressTxtField = new TextField();
 		addressTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(addressTxtField, 1, 2);
-		addressTxtField.setText(shippingData.getStreet());
+//		addressTxtField.setText(shippingData.getStreet());
 
 		// Add City label
 		Label cityLbl = new Label("City");
@@ -107,10 +109,10 @@ public class ShippingBillingInfoWindow extends Stage {
 		shippingAddGrid.add(cityLbl, 0, 3);
 
 		// Add city TextField
-		TextField cityTxtField = new TextField();
+		cityTxtField = new TextField();
 		cityTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(cityTxtField, 1, 3);
-		cityTxtField.setText(shippingData.getCity());
+		
 
 		// Add State label
 		Label stateLbl = new Label("State");
@@ -118,10 +120,10 @@ public class ShippingBillingInfoWindow extends Stage {
 		shippingAddGrid.add(stateLbl, 0, 4);
 
 		// Add State TextField
-		TextField stateTxtField = new TextField();
+		stateTxtField = new TextField();
 		stateTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(stateTxtField, 1, 4);
-		stateTxtField.setText(shippingData.getState());
+		
 
 		// Add Zip label
 		Label zipLbl = new Label("Zip");
@@ -129,10 +131,10 @@ public class ShippingBillingInfoWindow extends Stage {
 		shippingAddGrid.add(zipLbl, 0, 5);
 
 		// Add Zip TextField
-		TextField zipTxtField = new TextField();
+		zipTxtField = new TextField();
 		zipTxtField.setPrefWidth(WINDOW_WIDTH / 2);
 		shippingAddGrid.add(zipTxtField, 1, 5);
-		zipTxtField.setText(shippingData.getZip());
+		
 
 		// Add Billing Address Controls
 
@@ -254,7 +256,7 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		Button shippingAddressBtn = new Button("Select Shipping Address");
 		shippingAddressBtn.setOnAction(evt -> {
-			ShippingAddress shippingAddress = new ShippingAddress();
+			ShippingAddress shippingAddress = new ShippingAddress(this);
 			shippingAddress.show();
 			hide();
 		});
@@ -273,6 +275,10 @@ public class ShippingBillingInfoWindow extends Stage {
 
 		Button backCartBtn = new Button("Back To Cart");
 		backCartBtn.setAlignment(Pos.CENTER);
+		backCartBtn.setOnAction(evt ->{
+			cartItems.show();
+			hide();
+		});
 		bottomBtnGrid.add(backCartBtn, 2, 0);
 
 		Scene scene = new Scene(grid, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -280,6 +286,15 @@ public class ShippingBillingInfoWindow extends Stage {
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 
+	}
+	
+	
+	
+	public void setShippingData(Shipping shippingData){
+		stateTxtField.setText(shippingData.getState());
+		zipTxtField.setText(shippingData.getZip());
+		addressTxtField.setText(shippingData.getStreet());
+		cityTxtField.setText(shippingData.getCity());
 	}
 
 }

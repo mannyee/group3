@@ -23,6 +23,7 @@ public class QuantityDesired extends Stage {
 		setTitle("Quantity Desired");
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Quantity Desired");
+		paymentLbl.getStyleClass().add("custom-tile-font-style");
 		paymentLbl.setFont(new Font("Arial", 16));
 		HBox paymentBox = new HBox();
 		paymentBox.setAlignment(Pos.CENTER);
@@ -35,7 +36,7 @@ public class QuantityDesired extends Stage {
 		
 
 		HBox gridBox = new HBox();
-		gridBox.setPadding(new Insets(20, 0, 20, 0));
+		gridBox.setPadding(new Insets(20, 0, 15, 0));
 		gridBox.setAlignment(Pos.CENTER);
 		gridBox.getChildren().addAll(textField);
 
@@ -44,7 +45,8 @@ public class QuantityDesired extends Stage {
 		
 		HBox errorBox = new HBox();
 		final Text errorText = new Text();
-		errorText.setFont(new Font("Arial", 16));
+		errorText.getStyleClass().add("error-font-style");
+//		errorText.setFont(new Font("Arial", 16));
 		errorText.setFill(Color.RED);
 		errorBox.setAlignment(Pos.CENTER);
 		errorBox.getChildren().addAll(errorText);
@@ -69,12 +71,12 @@ public class QuantityDesired extends Stage {
 		});
 
 		HBox buttonsBox = new HBox(20);
-		buttonsBox.setPadding(new Insets(50, 0, 0, 0));
+		buttonsBox.setPadding(new Insets(10, 0, 20, 0));
 		buttonsBox.setAlignment(Pos.CENTER);
 		buttonsBox.getChildren().addAll(ok, cancel);
 
 		root.getChildren().addAll(paymentBox, gridBox, errorBox,buttonsBox);
-		Scene scene = new Scene(root, 200, 200);
+		Scene scene = new Scene(root, 250, 160);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);

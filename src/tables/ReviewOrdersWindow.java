@@ -27,7 +27,8 @@ public class ReviewOrdersWindow extends Stage {
 		setTitle("Order History");
 		VBox root = new VBox();
 		Label orderLbl = new Label("Order History");
-		orderLbl.setFont(new Font("Arial", 16));
+		orderLbl.getStyleClass().add("custom-tile-font-style");
+		//orderLbl.setFont(new Font("Arial", 16));
 		HBox orderBox = new HBox();
 		orderBox.setAlignment(Pos.CENTER);
 		orderBox.getChildren().add(orderLbl);
@@ -47,15 +48,16 @@ public class ReviewOrdersWindow extends Stage {
 		totalCost.setCellValueFactory(
 	            new PropertyValueFactory<Order, Double>("totalCost"));
 	//	unitPrice.setCellFactory(TextFieldTableCell.forTableColumn());
-		
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(orderID,orderDate,totalCost);
 	//	table.setItems(DefaultData.Final_order_data);
+		table.setMinWidth(480);
 		
 		HBox gridBox = new HBox();
 		gridBox.setPadding(new Insets(20, 0, 20, 0));
 		gridBox.setAlignment(Pos.CENTER);
 		gridBox.getChildren().addAll(table);
-
+		
 		Button viewDetails = new Button("View Details");
 		viewDetails.setOnAction(evt -> {
 			ReviewOrdersDetailsWindow reviewOrdersDetailsWindow = new ReviewOrdersDetailsWindow(this);
@@ -70,12 +72,12 @@ public class ReviewOrdersWindow extends Stage {
 		});
 
 		HBox buttonsBox = new HBox(20);
-		buttonsBox.setPadding(new Insets(50, 0, 0, 0));
+		buttonsBox.setPadding(new Insets(0, 0, 20, 0));
 		buttonsBox.setAlignment(Pos.CENTER);
 		buttonsBox.getChildren().addAll(viewDetails, cancel);
 
 		root.getChildren().addAll(orderBox, gridBox, buttonsBox);
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 500, 400);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);

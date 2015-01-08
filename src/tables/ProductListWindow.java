@@ -1,6 +1,7 @@
 package tables;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,7 +32,8 @@ public class ProductListWindow extends Stage {
 		setTitle("Product List");
 		
 		final Label label = new Label(String.format("Available %s", catalog.getName()));
-        label.setFont(new Font("Arial", 16));
+		label.getStyleClass().add("custom-tile-font-style");
+//        label.setFont(new Font("Arial", 16));
         HBox labelHbox = new HBox(10);
         labelHbox.setAlignment(Pos.CENTER);
         labelHbox.getChildren().add(label);
@@ -42,7 +44,7 @@ public class ProductListWindow extends Stage {
 		productNameCol.setCellValueFactory(
             new PropertyValueFactory<Product, String>("productName"));
 		productNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(productNameCol);
 		
 		Button viewButton = new Button("Select Product");
@@ -55,6 +57,7 @@ public class ProductListWindow extends Stage {
 		grid.add(labelHbox, 0, 0);
 		grid.add(table, 0, 1);
 		HBox btnBox = new HBox(10);
+		btnBox.setPadding(new Insets(0, 0, 20, 0));
 		btnBox.setAlignment(Pos.CENTER);
 		btnBox.getChildren().add(viewButton);
 		btnBox.getChildren().add(backButton);
@@ -73,7 +76,9 @@ public class ProductListWindow extends Stage {
 			prodDetails.show();
 		});
   
-        Scene scene = new Scene(grid,300, 250);  
+        Scene scene = new Scene(grid,350, 300);  
+        scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 	}
 	

@@ -21,6 +21,7 @@ public class ProceedWithCheckout extends Stage {
 		shippingBillingInfoWindow = stage;
 		VBox root = new VBox();
 		Label paymentLbl = new Label("Payment Method");
+		paymentLbl.getStyleClass().add("custom-tile-font-style");
 		paymentLbl.setFont(new Font("Arial", 16));
 		HBox paymentBox = new HBox();
 		paymentBox.setAlignment(Pos.CENTER);
@@ -73,7 +74,7 @@ public class ProceedWithCheckout extends Stage {
 		buttonsBox.getChildren().addAll(checkOutBtn, backToCard);
 
 		root.getChildren().addAll(paymentBox, gridBox, buttonsBox);
-		Scene scene = new Scene(root, 400, 300);
+		Scene scene = new Scene(root, 400, 280);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);

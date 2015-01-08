@@ -46,7 +46,9 @@ public class CartItems extends Stage {
 	public void load(){
 		setTitle("Cart Items");
 		VBox root = new VBox();
+		root.setPrefWidth(700);
 		Label paymentLbl = new Label("Cart Items");
+		paymentLbl.getStyleClass().add("custom-tile-font-style");
 		paymentLbl.setFont(new Font("Arial", 16));
 		HBox paymentBox = new HBox();
 		paymentBox.setAlignment(Pos.CENTER);
@@ -80,17 +82,17 @@ public class CartItems extends Stage {
 	//	totalPrice.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		table.getColumns().addAll(item,quantity,unitPrice,totalPrice);
-
 		table.setItems(DefaultData.Final_order_data);
-		
+		table.setMinWidth(660);
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		HBox gridBox = new HBox();
-		gridBox.setPadding(new Insets(20, 0, 20, 0));
-		gridBox.setAlignment(Pos.CENTER);
+		gridBox.setPadding(new Insets(20, 20, 20, 20));
+		//gridBox.setAlignment(Pos.CENTER);
 		gridBox.getChildren().addAll(table);
 
 		Button proceedCheck = new Button("Proceed To Check Out");
 		proceedCheck.setOnAction(evt -> {
-			ShippingBillingInfoWindow shippingBillingInfoWindow = new ShippingBillingInfoWindow(new Shipping());
+			ShippingBillingInfoWindow shippingBillingInfoWindow = new ShippingBillingInfoWindow(this);
 			shippingBillingInfoWindow.show();
 			hide();
 		});
@@ -109,16 +111,16 @@ public class CartItems extends Stage {
 
 
 		HBox buttonsBox = new HBox(20);
-		buttonsBox.setPadding(new Insets(50, 0, 0, 0));
+		buttonsBox.setPadding(new Insets(0, 0, 20, 0));
 		buttonsBox.setAlignment(Pos.CENTER);
 		buttonsBox.getChildren().addAll(proceedCheck, continueShopping, saveCart, exit);
 
 		root.getChildren().addAll(paymentBox, gridBox, buttonsBox);
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 700, 500);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
-		show();
+		
 	}
 
 }

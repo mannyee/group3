@@ -1,8 +1,11 @@
 package tables;
 
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,7 +41,8 @@ public class MaintainCatalogTypes extends Stage {
 		setTitle("Maintain Catalogs Types");
 
 		final Label label = new Label("Maintain Catalogs Types");
-		label.setFont(new Font("Arial", 16));
+		label.getStyleClass().add("custom-tile-font-style");
+//		label.setFont(new Font("Arial", 16));
 		HBox labelHbox = new HBox(10);
 		labelHbox.setAlignment(Pos.CENTER);
 		labelHbox.getChildren().add(label);
@@ -49,7 +54,7 @@ public class MaintainCatalogTypes extends Stage {
 				.setCellValueFactory(new PropertyValueFactory<Catalog, String>(
 						"name"));
 		catalogNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(catalogNameCol);
 
 		Button addBtn = new Button("Add");
@@ -65,6 +70,7 @@ public class MaintainCatalogTypes extends Stage {
 		grid.add(table, 0, 1);
 
 		HBox btnBox = new HBox(10);
+		btnBox.setPadding(new Insets(0,0,10,0));
 		btnBox.setAlignment(Pos.CENTER);
 		btnBox.getChildren().add(addBtn);
 		btnBox.getChildren().add(editBtn);
@@ -100,7 +106,9 @@ public class MaintainCatalogTypes extends Stage {
 			hide();
 		});
 
-		Scene scene = new Scene(grid, 300, 250);
+		Scene scene = new Scene(grid, 400, 250);
+		scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		setScene(scene);
 	}
 
@@ -111,6 +119,8 @@ public class MaintainCatalogTypes extends Stage {
 		grd_pan.setHgap(10);
 		grd_pan.setVgap(10);// pading
 		Scene scene = new Scene(grd_pan, 300, 150);
+		scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		dialogStage.setScene(scene);
 		dialogStage.setTitle("Remove Catalog");
 		dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -157,6 +167,8 @@ public class MaintainCatalogTypes extends Stage {
 		grd_pan.setHgap(10);
 		grd_pan.setVgap(10);// pading
 		Scene scene = new Scene(grd_pan, 300, 150);
+		scene.getStylesheets().add(
+				getClass().getResource("style.css").toExternalForm());
 		dialogStage.setScene(scene);
 		dialogStage.setTitle("Edit Catalog");
 		dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -166,14 +178,17 @@ public class MaintainCatalogTypes extends Stage {
 
 		TextField nameTF = new TextField();
 		grd_pan.add(nameTF, 0, 1);
-
+		
+		final Text errorMsg = new Text();
+		errorMsg.getStyleClass().add("error-font-style");
+		errorMsg.setFill(Color.RED);
 		Button okBtn = new Button("Ok");
 		okBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				dialogStage.hide();
+				
 
 				String name = nameTF.getText().toString();
 
@@ -184,8 +199,15 @@ public class MaintainCatalogTypes extends Stage {
 						DefaultData.CATALOG_LIST_DATA.remove(selectdIndex);
 						DefaultData.CATALOG_LIST_DATA.add(selectdIndex,
 								new Catalog(name));
+						dialogStage.hide();
 					} else if (type.equals("add")) {
-						DefaultData.CATALOG_LIST_DATA.add(new Catalog(name));
+						boolean check = DefaultData.CATALOG_LIST_DATA.stream().filter((Catalog c) -> c.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).size() > 0;
+						if(check){
+							errorMsg.setText("Catalog already present");
+						}else{
+							DefaultData.CATALOG_LIST_DATA.add(new Catalog(name));
+							dialogStage.hide();
+						}
 					}
 
 				}
@@ -206,7 +228,8 @@ public class MaintainCatalogTypes extends Stage {
 		HBox box = new HBox(10);
 		box.getChildren().addAll(okBtn, cancelBtn);
 
-		grd_pan.add(box, 0, 3);
+		grd_pan.add(errorMsg, 0, 3);
+		grd_pan.add(box, 0, 4);
 
 		dialogStage.show();
 

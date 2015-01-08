@@ -1,7 +1,11 @@
 package tables;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -19,6 +23,7 @@ import javafx.stage.Stage;
 
 public class Start extends Application {
 	Stage primaryStage;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -43,33 +48,38 @@ public class Start extends Application {
 		topContainer.getChildren().add(labelBox);
 
 		Menu custMenu = new Menu("Customer");
+		custMenu.getStyleClass().add("font-style");
 		MenuItem onlinePurchase = new MenuItem("Online Purchase");
 
+		/*
+		 * onlinePurchase.setOnAction(evt -> { CatalogListWindow catalogs = new
+		 * CatalogListWindow(primaryStage); //
+		 * catalogs.setData(DefaultData.CATALOG_LIST_DATA); List<Catalog> filter
+		 * = DefaultData.CATALOG_LIST_DATA.stream().filter( (Catalog c) ->
+		 * DefaultData.PRODUCT_LIST_DATA.get(c) != null
+		 * ).collect(Collectors.toList());
+		 * catalogs.setData(FXCollections.observableList(filter) );
+		 * catalogs.show(); primaryStage.hide();
+		 * 
+		 * });
+		 */
+
 		onlinePurchase.setOnAction(evt -> {
-			CatalogListWindow catalogs = new CatalogListWindow(primaryStage);
-			catalogs.setData(DefaultData.CATALOG_LIST_DATA);
-			catalogs.show();
-			primaryStage.hide();
-
-		});
-
-
-		onlinePurchase.setOnAction(evt -> {	
 			openCatalogListWindow();
 		});
 		MenuItem reviewOrder = new MenuItem("Review Orders");
 		reviewOrder.setOnAction(evt -> {
-			ReviewOrdersWindow reviewOrders = new ReviewOrdersWindow(primaryStage);
+			ReviewOrdersWindow reviewOrders = new ReviewOrdersWindow(
+					primaryStage);
 			reviewOrders.show();
 			primaryStage.hide();
 		});
-	    MenuItem retrieveCart = new MenuItem("Retrieve Saved Cart");
-	    retrieveCart.setOnAction(evt ->{
-	    	CartItems cartItems = new CartItems(this);
-	    	cartItems.show();
-	    	primaryStage.hide();
-	    });
-	    
+		MenuItem retrieveCart = new MenuItem("Retrieve Saved Cart");
+		retrieveCart.setOnAction(evt -> {
+			CartItems cartItems = new CartItems(this);
+			cartItems.show();
+			primaryStage.hide();
+		});
 
 		MenuItem exitApp = new MenuItem("Exit");
 		exitApp.setOnAction(evt -> Platform.exit());
@@ -98,17 +108,21 @@ public class Start extends Application {
 		Scene scene = new Scene(topContainer, 400, 300);
 		scene.getStylesheets().add(
 				getClass().getResource("style.css").toExternalForm());
-
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	
-	public void openCatalogListWindow(){
+	public void openCatalogListWindow() {
 		CatalogListWindow catalogs = new CatalogListWindow(primaryStage);
-        catalogs.setData(DefaultData.CATALOG_LIST_DATA);
-        catalogs.show();  
-        primaryStage.hide();
+		// catalogs.setData(DefaultData.CATALOG_LIST_DATA);
+		List<Catalog> filter = DefaultData.CATALOG_LIST_DATA
+				.stream()
+				.filter((Catalog c) -> DefaultData.PRODUCT_LIST_DATA.get(c) != null
+						&& DefaultData.PRODUCT_LIST_DATA.get(c).size() > 0)
+				.collect(Collectors.toList());
+		catalogs.setData(FXCollections.observableList(filter));
+		catalogs.show();
+		primaryStage.hide();
 	}
 
 }
