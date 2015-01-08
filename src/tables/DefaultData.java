@@ -1,5 +1,6 @@
 package tables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,13 +18,28 @@ public class DefaultData {
 	public static final Product PANTS 				= new Product("Pants", "11/1/2000", 20, 15.00);
 	public static final Product SKIRTS 				= new Product("Skirts", "1/5/1995", 15, 12.00);
 	public static final Product TSHIRTS 			= new Product("T-Shirts", "1/10/2005", 10, 22.00);
+	public static int PRODUCT_ID			= 1;
+	
+	public static List<Product> listProd 			= new ArrayList<Product>();
+	public static List<Product> listClothes 		= new ArrayList<Product>();
+	static{
+		listProd.add(MESSIAH_BOOK);
+		listProd.add(GONE_BOOK);
+		listProd.add(GARDEN_BOOK);
+		
+		listClothes.add(PANTS);
+		listClothes.add(SKIRTS);
+		listClothes.add(TSHIRTS);
+		
+	}
+	
 	// Shipping Address Data
 	public static final ObservableList<Shipping> shippingItemList 				= FXCollections.observableArrayList(
 																						new Shipping("1000 N.", "Fairfield", "Iowa", "52557"), 
 																						new Shipping("2000 N.", "Fairfield", "NY", "42997"));
 	
 	public static final ObservableList<Catalog> CATALOG_LIST_DATA 				= FXCollections.observableArrayList(BOOKS_CATALOG, CLOTHES_CATALOG);
-	public final static ObservableMap<Catalog, List<Product>> PRODUCT_LIST_DATA = FXCollections.observableHashMap();
+	public static ObservableMap<Catalog, List<Product>> PRODUCT_LIST_DATA		= FXCollections.observableHashMap();
 	public static final List<String> DISPLAY_PRODUCT_FIELDS 					= Arrays.asList("Item Name", "Price", "Quantity Available", "Review");
 	public static ObservableList<FinalOrder> Final_order_data 					= FXCollections.observableArrayList();
 
@@ -36,8 +52,10 @@ public class DefaultData {
 		SKIRTS.setDescription("Once this brand of skirts \nbecomes well-known, watch out!");
 		TSHIRTS.setDescription("Can be worn by men or women. \nAlways in style.");
 
-		PRODUCT_LIST_DATA.put(BOOKS_CATALOG, Arrays.asList(MESSIAH_BOOK, GONE_BOOK, GARDEN_BOOK));
+	//	PRODUCT_LIST_DATA.put(BOOKS_CATALOG, Arrays.asList(MESSIAH_BOOK, GONE_BOOK, GARDEN_BOOK));
+		PRODUCT_LIST_DATA.put(BOOKS_CATALOG, listProd);
 
-		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG,Arrays.asList(PANTS, SKIRTS, TSHIRTS));
+//		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG,Arrays.asList(PANTS, SKIRTS, TSHIRTS));
+		PRODUCT_LIST_DATA.put(CLOTHES_CATALOG, listClothes);
 	}
 }

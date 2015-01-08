@@ -23,7 +23,14 @@ public class Product {
     public Product(String name, String date, int numAvail, double price){
     	this(null, name, numAvail, price, date, null, null);
     }
-    /**
+   
+    
+    public Product(Integer pi, String pn, String md, int qa, double up) {
+    	this(pi, pn, qa, up, md, null, null);
+    	
+	}
+    
+	/**
      * @return Returns the catalogId.
      */
     public Integer getCatalogId() {

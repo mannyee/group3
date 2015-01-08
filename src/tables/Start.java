@@ -63,6 +63,14 @@ public class Start extends Application {
 		MenuItem catalogType = new MenuItem("Maintain Catalog Types");
 		adminMenu.getItems().addAll(productCatalog, catalogType);
 		mainMenu.getMenus().addAll(custMenu, adminMenu);
+		
+		
+		productCatalog.setOnAction(evt -> {
+			primaryStage.hide();
+			ProductCatalog pc = new ProductCatalog();
+			pc.show();
+			
+		});
 
 		Scene scene = new Scene(topContainer, 400, 300);
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());

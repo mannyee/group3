@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import model.Shipping;
 
 public class CartItems extends Stage {
-	private Product product;
 	private TableView<FinalOrder> table = new TableView<FinalOrder>();
 	
 	@SuppressWarnings("unchecked")
